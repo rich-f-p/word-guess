@@ -1,0 +1,20 @@
+h1{
+    text-align: center;
+
+}
+.words{
+    border: solid;
+    border-color: black;
+    width: 600px;
+    height: 400px;
+}
+.guess{
+border: solid;
+width: 600px;
+}
+.letter{
+
+}
+.submit{
+
+}
