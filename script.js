@@ -5,7 +5,6 @@ var list = ["javascript", "init", "bootcamp", "style", "html","array","local","g
 /*  */
 // ### Specifications
 
-// * When a user presses a letter key, the user's guess should be captured as a key event.
 
 // * When a user correctly guesses a letter, the corresponding blank "_" should be replaced by the letter. For example, if the user correctly selects "a", then "a _ _ a _" should appear. 
 
@@ -22,13 +21,16 @@ var keyPressed;
 var time = 5;
 var timeEL = document.getElementById("timer");
 // current word being guess
-var currentWord = "apple";
+var currentWord = "";
 // win
 var win =0;
 //loss
 var loss=0;
+document.getElementById("losses").innerHTML = loss
 //letters guessed
 var letterGuessed=[];
+
+document.getElementById("words").innerHTML = currentWord;
 
 
 //what do we do ?
@@ -56,17 +58,30 @@ function countdown() {
         // Set the `textContent` of `timerEl` to show the remaining seconds
         timeEL.textContent = time + ' seconds remaining';
         // Decrement `timeLeft` by 1
-        time--;
+        time--
+        ;
       } 
+      else if (time === -1) {
+        loss++ 
+      }
     }, 1000);
   }
   countdown();
 
+  
+
   function randomWord() {
       var random = Math.floor(Math.random()*list.length);
       currentWord = list[random];
-      return currentWord;
+      return list[random];
   }
+randomWord();
+currentWord=randomWord();
+//   function youWin() {
+//       for (i=0; i<currentWord.length; i++) {
+//           if ( currentWord === )
+//       } 
+//   }
 //compare word to user guess
 // function compare(event){
 //     for(i=0;i<currentWord.length;i++){
@@ -79,7 +94,7 @@ function countdown() {
 // }
 //display string with underscores for letter not guessed
 
-    document.getElementsById("words").innerHTML ="apple";
+
     
 
 
