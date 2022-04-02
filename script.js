@@ -30,12 +30,27 @@ document.getElementById("losses").innerHTML = loss
 //letters guessed
 var letterGuessed=[];
 
-document.getElementById("words").innerHTML = currentWord;
 
 
+function randomWord() {
+    var random = Math.floor(Math.random()*list.length);
+    currentWord = list[random];
+    return list[random];
+}
+randomWord();
 //what do we do ?
 //capture user input
 
+var hiddenWord;
+function hideWord() {
+hiddenWord = " "
+  for (i=0; i<currentWord.length; i++) {
+      hiddenWord += " _ ";
+  }
+  return hiddenWord;
+}
+hideWord()
+document.getElementById("words").innerHTML = hiddenWord
 
 function keydownAction(event){
 event.preventDefault();
@@ -44,9 +59,13 @@ var keyPressed = event.key;
 document.querySelector("#letter").textContent=keyPressed;
 document.getElementById("usedLetters").innerHTML = letterGuessed
 letterGuessed = letterGuessed.concat(keyPressed)
-return keyPressed;
+compare();
+hiddenWord=newWord
+console.log(newWord)
 }
 document.addEventListener("keydown", keydownAction);
+
+document.getElementById("words").innerHTML = hiddenWord
 
 function countdown() {
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
@@ -70,27 +89,32 @@ function countdown() {
 
   
 
-  function randomWord() {
-      var random = Math.floor(Math.random()*list.length);
-      currentWord = list[random];
-      return list[random];
-  }
-randomWord();
-currentWord=randomWord();
+  
+
+
+
+
+
+// compare letter to user guess
+function compare(event){
+    var newWord;
+    for(i=0;i<currentWord.length;i++){
+    if (keyPressed === currentWord.charAt(i)) {
+        newWord += currentWord.charAt(i)
+    }
+    else 
+    newWord += "_";
+    return newWord
+}
+}
+
+    /* display letter that is correct */
+
 //   function youWin() {
 //       for (i=0; i<currentWord.length; i++) {
 //           if ( currentWord === )
 //       } 
 //   }
-//compare word to user guess
-// function compare(event){
-//     for(i=0;i<currentWord.length;i++){
-//     if (keyPressed === currentWord){
-//         /* display letter that is correct */
-//     }else {
-
-//     }
-
 // }
 //display string with underscores for letter not guessed
 
