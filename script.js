@@ -19,7 +19,8 @@ var list = ["javascript", "init", "bootcamp", "style", "html","array","local","g
 // what key pressed
 var keyPressed;
 //time
-var time = 10;
+var time = 5;
+var timeEL = document.getElementById("timer");
 // current word being guess
 var currentWord = "apple";
 // win
@@ -33,33 +34,55 @@ var letterGuessed=[];
 //what do we do ?
 //capture user input
 
+
 function keydownAction(event){
 event.preventDefault();
 console.log(event); 
 var keyPressed = event.key;
 document.querySelector("#letter").textContent=keyPressed;
+document.getElementById("usedLetters").innerHTML = letterGuessed
+letterGuessed = letterGuessed.concat(keyPressed)
 return keyPressed;
 }
 document.addEventListener("keydown", keydownAction);
+
+function countdown() {
+    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    //We then declare timeInterval and assign it the value of setInterval(). Here, we will update the text in timerEl at an interval of 1000 ms, or 1 second. With each interval, we decrement the value of timeLeft. If timeLeft is equal to 0, we use clearInterval() to stop timeInterval().
+    var timeInterval = setInterval(function () {
+      // As long as the `timeLeft` is greater than 1
+      // timeLeft--;
+      if (time > -1 ) {
+        // Set the `textContent` of `timerEl` to show the remaining seconds
+        timeEL.textContent = time + ' seconds remaining';
+        // Decrement `timeLeft` by 1
+        time--;
+      } 
+    }, 1000);
+  }
+  countdown();
+
+  function randomWord() {
+      var random = Math.floor(Math.random()*list.length);
+      currentWord = list[random];
+      return currentWord;
+  }
 //compare word to user guess
-function compare(event){
-    for(i=0;i<currentWord.length;i++){
-    if (keyPressed === currentWord){
-        /* display letter that is correct */
-    }else {
+// function compare(event){
+//     for(i=0;i<currentWord.length;i++){
+//     if (keyPressed === currentWord){
+//         /* display letter that is correct */
+//     }else {
 
-    }
+//     }
 
-}
+// }
 //display string with underscores for letter not guessed
-function display(){
-    var incorrectGuesses = [];
-    if (keyPressed !=currentWord){
-        incorrectGuesses.concat=keyPressed;
-    }
-    var key = keydownAction();
 
-}
+    document.getElementsById("words").innerHTML ="apple";
+    
+
+
 //increment win
 //increment losses
 //display win

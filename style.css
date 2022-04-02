@@ -2,7 +2,7 @@ h1{
     text-align: center;
 
 }
-.words{
+#words{
     border: solid;
     border-color: black;
     width: 600px;
