@@ -69,6 +69,7 @@ function check(){
 winEl.textContent = win;
 lossEL.textContent = loss;
 timeEL.textContent = time + "seconds remaining";
+
 function countdown() {
   time = 10;
   var stopTime = setInterval(function () {
@@ -80,6 +81,9 @@ function countdown() {
       // Decrement `timeLeft` by 1
       time--
       console.log(time);
+      if (youWin(true)){
+      clearInterval(stopTime);
+      }
       ;
     } 
     else if (time === 0) {
@@ -110,15 +114,14 @@ youLose();
 
 
 
-// compare letter to user guess
 
 function youWin(){
  if(time >0 && hiddenWord === currentWord){
- win++
-;
+ win++;
  timeEL.textContent = "correct";
  winEl.innerHTML= win;
- } 
+ return true;
+ } else {return false};
 };
 
 function youLose(){
