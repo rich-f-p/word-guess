@@ -1,11 +1,6 @@
 var list = ["javascript","init","bootcamp","style","html","array","local","global","dom","github"];
 
-/* function to compare letter to word to guess */
 // ### Specifications
-// * When a user correctly guesses a letter, the corresponding blank "_" should be replaced by the letter. For example, if the user correctly selects "a", then "a _ _ a _" should appear. 
-
-// * When a user wins or loses a game, a message should appear and the timer should stop. 
-
 // * When a user refreshes or returns to the brower page, the win and loss counts should persist.
 
 /* what do we need */
@@ -13,9 +8,14 @@ var keyPressed;
 var time = 10;
 var timeEL = document.getElementById("timer");
 var currentWord = " ";
-var win =0;
+var win = 0;
+if(totalWins=NaN){
+  win=0
+}else{
+  win=totalWins
+};
 var winEl = document.getElementById("wins");
-var loss=0;
+var loss = 0;
 var lossEL = document.getElementById("losses");
 var letterGuessed=[];
 
@@ -31,15 +31,15 @@ randomWord();
 
 var hiddenWord;
 function hideWord() {
-hiddenWord = " "
-  for (i=0; i<currentWord.length-1; i++) {
+hiddenWord = ""
+  for (i=0; i<currentWord.length; i++) {
       hiddenWord += "_";
   }
   return hiddenWord;
 }
 hideWord();
 
-var key = " ";
+var key = "";
 
 document.getElementById("words").innerHTML = "press start to play";
 //capture user input
@@ -53,7 +53,7 @@ document.getElementById("usedLetters").innerHTML = letterGuessed
 key = keyPressed;
 check();
 document.getElementById("words").innerHTML = hiddenWord;
-youWin();
+//youWin();
 
 }
 var newWord ="";
@@ -65,9 +65,9 @@ function check(){
      }          
 }
 
-
-winEl.textContent = win;
-lossEL.textContent = loss;
+/* displays win loss values */
+winEl.textContent = totalWins;
+lossEL.textContent = totalLosses;
 timeEL.textContent = time + "seconds remaining";
 
 function countdown() {
@@ -101,25 +101,17 @@ randomWord();
 console.log(currentWord);
 hideWord();
 document.getElementById("words").innerHTML = hiddenWord
+youWin();
 youLose();
-
 
  })
 
-// function resetTime(){
-//   time =5;
-//}
-
-  
-
-
-
-
 function youWin(){
  if(time >0 && hiddenWord === currentWord){
- win++;
+ win++
  timeEL.textContent = "correct";
- winEl.innerHTML= win;
+ localStorage.setItem("win",win);
+ getStats();
  return true;
  } else {return false};
 };
@@ -127,16 +119,27 @@ function youWin(){
 function youLose(){
 if(time === 0 && hiddenWord !== currentWord){
  loss++
+ localStorage.setItem("loss",loss);
+ getStats();
 /* display loss */
-} lossEL.innerHTML=loss;
+} /*lossEL.innerHTML=totalLosses;*/
 };
 
-// //store info with in local storage
-// localStorage.setItem("", JSON.stringify());
-// localStorage.setItem("",);
-// //
-// var previousInfo = localStorage.getItem("",JSON.parse());
-
+//store info within local storage
+var totalWins;
+var totalLosses;
+function getStats(){
+totalWins = localStorage.getItem("win");
+totalLosses = localStorage.getItem("loss");
+ //localStorage.setItem("win",win);
+// localStorage.setItem("loss",loss);
+winEl.textContent=totalWins;
+lossEL.textContent=totalLosses;
+}
+function open(){
+getStats();
+}
+open();
 // if (time>0){
-//   startButton.setAttribute("disabled","disabled");
-//disable button,how to able when time == 0 ?
+//    startButton.setAttribute("disabled","disabled");
+// disable button,how to able when time == 0 ?
