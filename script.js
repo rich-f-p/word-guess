@@ -9,11 +9,6 @@ var time = 10;
 var timeEL = document.getElementById("timer");
 var currentWord = " ";
 var win = 0;
-if(totalWins=NaN){
-  win=0
-}else{
-  win=totalWins
-};
 var winEl = document.getElementById("wins");
 var loss = 0;
 var lossEL = document.getElementById("losses");
