@@ -1,37 +1,26 @@
-var list = ["javascript", "init", "bootcamp", "style", "html","array","local","global","dom","github"];
+var list = ["javascript","init","bootcamp","style","html","array","local","global","dom","github"];
 
-/* eventlistener */
 /* function to compare letter to word to guess */
-/*  */
 // ### Specifications
-
-
 // * When a user correctly guesses a letter, the corresponding blank "_" should be replaced by the letter. For example, if the user correctly selects "a", then "a _ _ a _" should appear. 
 
 // * When a user wins or loses a game, a message should appear and the timer should stop. 
 
-// * When a user clicks the start button, the timer should reset. 
-
 // * When a user refreshes or returns to the brower page, the win and loss counts should persist.
 
 /* what do we need */
-// what key pressed
 var keyPressed;
-//time
-var time = 5;
+var time = 10;
 var timeEL = document.getElementById("timer");
-// current word being guess
-var currentWord = "";
-// win
+var currentWord = " ";
 var win =0;
-//loss
+var winEl = document.getElementById("wins");
 var loss=0;
-document.getElementById("losses").innerHTML = loss
-//letters guessed
+var lossEL = document.getElementById("losses");
 var letterGuessed=[];
 
 
-
+/* grab word from array */
 function randomWord() {
     var random = Math.floor(Math.random()*list.length);
     currentWord = list[random];
@@ -39,94 +28,112 @@ function randomWord() {
 }
 randomWord();
 //what do we do ?
-//capture user input
 
 var hiddenWord;
 function hideWord() {
 hiddenWord = " "
-  for (i=0; i<currentWord.length; i++) {
-      hiddenWord += " _ ";
+  for (i=0; i<currentWord.length-1; i++) {
+      hiddenWord += "_";
   }
   return hiddenWord;
 }
-hideWord()
-document.getElementById("words").innerHTML = hiddenWord
+hideWord();
 
+var key = " ";
+
+document.getElementById("words").innerHTML = "press start to play";
+//capture user input
+document.addEventListener("keydown", keydownAction)
 function keydownAction(event){
 event.preventDefault();
-console.log(event); 
-var keyPressed = event.key;
+keyPressed = event.key;
+letterGuessed = letterGuessed.concat(keyPressed)
 document.querySelector("#letter").textContent=keyPressed;
 document.getElementById("usedLetters").innerHTML = letterGuessed
-letterGuessed = letterGuessed.concat(keyPressed)
-compare();
-hiddenWord=newWord
-console.log(newWord)
+key = keyPressed;
+check();
+document.getElementById("words").innerHTML = hiddenWord;
+youWin();
+
 }
-document.addEventListener("keydown", keydownAction);
+var newWord ="";
+function check(){
+      for(var i=0;i<hiddenWord.length;i++){
+      if ( currentWord.charAt(i)==key) {          
+        hiddenWord = hiddenWord.substring(0, i ) + key + hiddenWord.substring(i+1) ;
+       }
+     }          
+}
 
-document.getElementById("words").innerHTML = hiddenWord
 
+winEl.textContent = win;
+lossEL.textContent = loss;
+timeEL.textContent = time + "seconds remaining";
 function countdown() {
-    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-    //We then declare timeInterval and assign it the value of setInterval(). Here, we will update the text in timerEl at an interval of 1000 ms, or 1 second. With each interval, we decrement the value of timeLeft. If timeLeft is equal to 0, we use clearInterval() to stop timeInterval().
-    var timeInterval = setInterval(function () {
-      // As long as the `timeLeft` is greater than 1
-      // timeLeft--;
-      if (time > -1 ) {
-        // Set the `textContent` of `timerEl` to show the remaining seconds
-        timeEL.textContent = time + ' seconds remaining';
-        // Decrement `timeLeft` by 1
-        time--
-        ;
-      } 
-      else if (time === -1) {
-        loss++ 
-      }
-    }, 1000);
-  }
-  countdown();
+  time = 10;
+  var stopTime = setInterval(function () {
+    // As long as the `timeLeft` is greater than 1
+    // timeLeft--;
+    if (time > 0 ) {
+      // Set the `textContent` of `timerEl` to show the remaining seconds
+      timeEL.textContent = time + ' seconds remaining';
+      // Decrement `timeLeft` by 1
+      time--
+      console.log(time);
+      ;
+    } 
+    else if (time === 0) {
+      timeEL.textContent = "YOU LOSE!";
+      clearInterval(stopTime);
+      youLose();
+    }
+  }, 500);
+}
+/* start the game */
+startButton.addEventListener("click", function(){
+letterGuessed = [];
+countdown();
+randomWord();
+console.log(currentWord);
+hideWord();
+document.getElementById("words").innerHTML = hiddenWord
+youLose();
+
+
+ })
+
+// function resetTime(){
+//   time =5;
+//}
 
   
-
-  
-
-
 
 
 
 // compare letter to user guess
-function compare(event){
-    var newWord;
-    for(i=0;i<currentWord.length;i++){
-    if (keyPressed === currentWord.charAt(i)) {
-        newWord += currentWord.charAt(i)
-    }
-    else 
-    newWord += "_";
-    return newWord
-}
-}
 
-    /* display letter that is correct */
+function youWin(){
+ if(time >0 && hiddenWord === currentWord){
+ win++
+;
+ timeEL.textContent = "correct";
+ winEl.innerHTML= win;
+ } 
+};
 
-//   function youWin() {
-//       for (i=0; i<currentWord.length; i++) {
-//           if ( currentWord === )
-//       } 
-//   }
-// }
-//display string with underscores for letter not guessed
+function youLose(){
+if(time === 0 && hiddenWord !== currentWord){
+ loss++
+/* display loss */
+} lossEL.innerHTML=loss;
+};
 
+// //store info with in local storage
+// localStorage.setItem("", JSON.stringify());
+// localStorage.setItem("",);
+// //
+// var previousInfo = localStorage.getItem("",JSON.parse());
 
-    
-
-
-//increment win
-//increment losses
-//display win
-//display loss
-//start timer
-//reset timer
-//store info with in local storage
-//
+// if (time>0){
+//   startButton.setAttribute("disabled","disabled");
+//disable button,how to able when time == 0 ?

@@ -1,5 +1,14 @@
+body{
+
+}
 h1{
     text-align: center;
+    border: solid;
+    border-radius: 8px;
+    color: white;
+    background-color: black;
+    margin: 10px;
+    width: fit-content;
 
 }
 #words{
@@ -7,14 +16,19 @@ h1{
     border-color: black;
     width: 600px;
     height: 400px;
+    color: white;
+    background-color:black;
+    border-radius: 8px;
+    margin: 10px;
+    padding-left: 10px;
 }
 .guess{
 border: solid;
+background-color:black;
+border-radius: 8px;
+margin: 10px;
+color: white;
 width: 600px;
 }
 .letter{
-
-}
-.submit{
-
 }
