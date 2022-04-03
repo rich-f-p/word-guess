@@ -1,16 +1,13 @@
 var list = ["javascript","init","bootcamp","style","html","array","local","global","dom","github"];
 
 // ### Specifications
-// * When a user refreshes or returns to the brower page, the win and loss counts should persist.
-
-/* what do we need */
 var keyPressed;
 var time = 10;
 var timeEL = document.getElementById("timer");
 var currentWord = " ";
-var win = 0;
+var win = localStorage.getItem("win");
 var winEl = document.getElementById("wins");
-var loss = 0;
+var loss = localStorage.getItem("loss");
 var lossEL = document.getElementById("losses");
 var letterGuessed=[];
 
@@ -131,6 +128,13 @@ totalLosses = localStorage.getItem("loss");
 winEl.textContent=totalWins;
 lossEL.textContent=totalLosses;
 }
+resetBtn.addEventListener("click",function(){
+ localStorage.clear();
+ winEl.textContent= "";
+ lossEL.textContent= "";
+ win = localStorage.getItem("win");
+ loss = localStorage.getItem("loss");
+})
 function open(){
 getStats();
 }

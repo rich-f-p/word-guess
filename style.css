@@ -22,6 +22,7 @@ h1{
     margin: 10px;
     padding-left: 10px;
     text-align: center;
+    letter-spacing: 10px;
 }
 .guess{
 border: solid;
