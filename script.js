@@ -1,6 +1,4 @@
 var list = ["javascript","init","bootcamp","style","html","array","local","global","dom","github"];
-
-// ### Specifications
 var keyPressed;
 var time = 10;
 var timeEL = document.getElementById("timer");
@@ -19,7 +17,6 @@ function randomWord() {
     return list[random];
 }
 randomWord();
-//what do we do ?
 
 var hiddenWord;
 function hideWord() {
@@ -45,10 +42,8 @@ document.getElementById("usedLetters").innerHTML = letterGuessed
 key = keyPressed;
 check();
 document.getElementById("words").innerHTML = hiddenWord;
-//youWin();
-
 }
-var newWord ="";
+
 function check(){
       for(var i=0;i<hiddenWord.length;i++){
       if ( currentWord.charAt(i)==key) {          
@@ -56,21 +51,16 @@ function check(){
        }
      }          
 }
-
 /* displays win loss values */
-winEl.textContent = totalWins;
-lossEL.textContent = totalLosses;
 timeEL.textContent = time + "seconds remaining";
-
 function countdown() {
   time = 10;
   var stopTime = setInterval(function () {
-    // As long as the `timeLeft` is greater than 1
-    // timeLeft--;
+
     if (time > 0 ) {
       // Set the `textContent` of `timerEl` to show the remaining seconds
       timeEL.textContent = time + ' seconds remaining';
-      // Decrement `timeLeft` by 1
+      // Decrement time by 1
       time--
       console.log(time);
       if (youWin(true)){
@@ -79,7 +69,7 @@ function countdown() {
       ;
     } 
     else if (time === 0) {
-      timeEL.textContent = "YOU LOSE!";
+      timeEL.textContent = "YOU LOSE! 😅";
       clearInterval(stopTime);
       youLose();
     }
@@ -101,7 +91,7 @@ youLose();
 function youWin(){
  if(time >0 && hiddenWord === currentWord){
  win++
- timeEL.textContent = "correct";
+ timeEL.textContent = "YOU WIN!!! 🥳";
  localStorage.setItem("win",win);
  getStats();
  return true;
@@ -113,8 +103,7 @@ if(time === 0 && hiddenWord !== currentWord){
  loss++
  localStorage.setItem("loss",loss);
  getStats();
-/* display loss */
-} /*lossEL.innerHTML=totalLosses;*/
+} 
 };
 
 //store info within local storage
@@ -123,8 +112,6 @@ var totalLosses;
 function getStats(){
 totalWins = localStorage.getItem("win");
 totalLosses = localStorage.getItem("loss");
- //localStorage.setItem("win",win);
-// localStorage.setItem("loss",loss);
 winEl.textContent=totalWins;
 lossEL.textContent=totalLosses;
 }
@@ -139,6 +126,4 @@ function open(){
 getStats();
 }
 open();
-// if (time>0){
-//    startButton.setAttribute("disabled","disabled");
-// disable button,how to able when time == 0 ?
+
